@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="src/css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="src/js/main.js"></script>
+</head>
+<body>
+  <div id="chart-el"></div>
+</body>
+<script>
+  $(window).ready(() => {
+    drawBarChart([55, 30, 80, 45, 65],
+      {
+        title: 'bar chart 1',
+        xLabel: 'x axis label',
+        yLabel: 'y axis label',
+        dataLabels: ['data1', 'data2', 'data3', 'data4', 'data5'],
+        height: 500,
+        width: 750,
+        barOptions: {
+          color: 'blue',
+          spacing: 50,
+        }
+      },
+      '#chart-el'
+    );
+  })
+</script>
+</html>

@@ -3,6 +3,7 @@ const drawBarChart = (data, options, element) => {
   const numItems = data.length;
   const height = options.height;
   const width = options.width;
+  const maxY = getMaxY(data);
   const barWidth = (width/numItems) - options.barOptions.spacing - (options.barOptions.spacing/numItems);
 
   //create bar chart and append to element parameter
@@ -11,17 +12,25 @@ const drawBarChart = (data, options, element) => {
 
   //loop through data parameter and create bars
   for(let i = 0; i < numItems; i++) {
-    createBar(data[i], options.barOptions, height, barWidth, options.dataLabels[i]);
+    let barHeight = (data[i] * 100) / maxY;
+    createBar(options.barOptions, barHeight, barWidth, options.dataLabels[i]);
   }
 }
 
-//creates bar and bar label and appends to chart
-const createBar = (data, options, height, width, label) => {
-  const barHeight = (height / 100) * data;
-
-  let bar = `<div class="bar" style="height:${barHeight}px;width:${width};background-color:${options.color};margin-left:${options.spacing}px">
+//create bar and label and append to chart
+const createBar = (options, height, width, label) => {
+  let bar = `<div class="bar" style="height:${height}%;width:${width};background-color:${options.color};margin-left:${options.spacing}px">
     <div class="bar-label">${label}</div>
   </div>`;
 
   $(bar).appendTo('.inner-chart')
+}
+
+//Find the max value for the y axis
+const getMaxY = (data) => {
+  let largestNum = data.reduce((accumulatedValue, currentValue) => {
+    return Math.max(accumulatedValue, currentValue);
+  });
+
+  return largestNum;
 }
